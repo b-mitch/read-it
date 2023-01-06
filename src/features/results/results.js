@@ -3,6 +3,8 @@
 export default function Results() {
 
   return (
-    <p>These are the results</p>
+    <div className='results'>
+        <p>These are the results</p>
+    </div>
     )
 }

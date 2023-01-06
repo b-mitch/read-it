@@ -18,14 +18,12 @@ export default function App() {
         <h1>Read It?</h1>
         <div className='icon'></div>
       </div>
-      <div className='search-bar'>
+      <div className='components'>
         <SearchBar />
-      </div>
-      <div className='filter'>
         <Filter />
-      </div>
-      <div className='results'>
-        <Results />
+        <div className='results-container'>
+          <Results />
+        </div>
       </div>
     </div>
   );
