@@ -78,5 +78,9 @@ h1 {
 
 .results{
   margin: 20px;
-  border: 1px solid black;
+}
+
+.result {
+  margin: 10px;
+  border: 5px solid black;
 }
