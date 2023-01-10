@@ -2,21 +2,16 @@ import React, { useState } from 'react';
 
 export default function SearchBar (props) {
 
-  const [search, setSearch] = useState('');
-
-  const onSearchHandler = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    props.onSearch(search);
-  }
-
-  const changeHandler = (e) => {
-    const userInput = e.target.value;
-    setSearch(userInput);
+    const userInput = e.target[0].value;
+    props.onSearch(userInput);
+    e.currentTarget.reset();
   }
 
   return (
-    <form onSubmit={onSearchHandler} className="search-bar">
-      <input type="text" onChange={changeHandler}placeholder='search' className="search" />
+    <form onSubmit={onSubmitHandler} className="search-bar">
+      <input type="text" placeholder='search' className="search" />
       <button type="submit" className="search-button">
         🔎
       </button>

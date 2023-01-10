@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState, useEffect }  from "react";
 
 import Results from '../features/results/results';
 import SearchBar from '../components/searchBar';
@@ -6,9 +6,28 @@ import Filter from '../components/filter';
 
 export default function App() {
   const [children, setChildren] = useState([]);
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('');
 
-  const fetchData = (search) => {
-    fetch(`https://www.reddit.com/search.json?q=${search}`)
+  const onSearch = (e) => {
+    setSearch(e);
+  }
+
+  const onFilter = (e) => {
+    setFilter(e);
+  }
+
+  const fetchData = () => {
+    if(filter===''){
+      fetch(`https://www.reddit.com/search.json?q=${search}`)
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          setChildren(data.data.children)
+        })
+      }
+    fetch(`https://www.reddit.com/search.json?q=${search}&type=link&sort=${filter}`)
       .then(response => {
         return response.json()
       })
@@ -17,6 +36,10 @@ export default function App() {
       })
   }
 
+  useEffect(()=>{
+    fetchData()
+  }, [search, filter])
+
   return (
     <div className="App">
       <div className='heading'>
@@ -24,8 +47,8 @@ export default function App() {
         <div className='icon'></div>
       </div>
       <div className='components'>
-        <SearchBar onSearch={fetchData} />
-        <Filter />
+        <SearchBar onSearch={onSearch} />
+        <Filter onFilter={onFilter} />
         <div className='results-container'>
           <Results children={children}/>
         </div>
